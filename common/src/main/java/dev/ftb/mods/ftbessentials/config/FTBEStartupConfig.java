@@ -28,8 +28,9 @@ public interface FTBEStartupConfig {
 					"the dimension controls defined in teleportation -> blacklists and",
 					"in teleportation -> rtp -> dimension_blacklist/whitelist");
 
+	// ultimateneo: all teleport cooldowns (and warm-ups) default to 0; max homes defaults to 10
 	// back
-	TimedCommandConfig BACK = new TimedCommandConfig(TELEPORTATION, "back", 30, 0)
+	TimedCommandConfig BACK = new TimedCommandConfig(TELEPORTATION, "back", 0, 0)
 			.comment("Allows users to return to their previous location after teleporting (or dying)");
 	PermissionBasedIntValue MAX_BACK = new PermissionBasedIntValue(
 			BACK.config.addInt("max", 10)
@@ -40,16 +41,16 @@ public interface FTBEStartupConfig {
 	BooleanValue BACK_ON_DEATH_ONLY = BACK.config.addBoolean("only_on_death", false)
 			.comment("Should be the /back command only be used for returning to the last death point?");
 	// spawn
-	TimedCommandConfig SPAWN = new TimedCommandConfig(TELEPORTATION, "spawn", 10, 0);
-	TimedCommandConfig PLAYER_SPAWN = new TimedCommandConfig(TELEPORTATION, "playerspawn", 10, 0);
+	TimedCommandConfig SPAWN = new TimedCommandConfig(TELEPORTATION, "spawn", 0, 0);
+	TimedCommandConfig PLAYER_SPAWN = new TimedCommandConfig(TELEPORTATION, "playerspawn", 0, 0);
 	// warp
-	TimedCommandConfig WARP = new TimedCommandConfig(TELEPORTATION, "warp", 10, 0)
+	TimedCommandConfig WARP = new TimedCommandConfig(TELEPORTATION, "warp", 0, 0)
 			.comment("Allows admins to create 'warps', which are fixed points in the world that users may teleport to using /warp");
 	// home
-	TimedCommandConfig HOME = new TimedCommandConfig(TELEPORTATION, "home", 10, 0)
+	TimedCommandConfig HOME = new TimedCommandConfig(TELEPORTATION, "home", 0, 0)
 			.comment("Allows users to set 'homes', which they can then freely teleport to by using /home afterwards");
 	PermissionBasedIntValue MAX_HOMES = new PermissionBasedIntValue(
-			HOME.config.addInt("max", 1)
+			HOME.config.addInt("max", 10)
 					.range(0, Integer.MAX_VALUE),
 			"ftbessentials.home.max",
 			"Max amount of homes a user can have."
@@ -57,11 +58,11 @@ public interface FTBEStartupConfig {
 	IntValue HOME_MIN_Y = HOME.config.addInt("home_min_y", Integer.MIN_VALUE)
 			.comment("The minimum Y value for homes, as set by the /sethome command");
 	// tpa
-	TimedCommandConfig TPA = new TimedCommandConfig(TELEPORTATION, "tpa", 10, 0)
+	TimedCommandConfig TPA = new TimedCommandConfig(TELEPORTATION, "tpa", 0, 0)
 			.comment("Allows players to create requests to teleport to other users on the server,",
 					"as well as requesting other players to teleport to them");
 	// rtp
-	TimedCommandConfig RTP = new TimedCommandConfig(TELEPORTATION, "rtp", 600, 0)
+	TimedCommandConfig RTP = new TimedCommandConfig(TELEPORTATION, "rtp", 0, 0)
 			.comment("Allows players to teleport to a random point in the Wilderness",
 					"Note: This currently does not respect Claimed Chunks yet!");
 	IntValue RTP_MAX_TRIES = RTP.config.addInt("max_tries", 100).range(1, 1000).comment("Number of tries before /rtp gives up");
