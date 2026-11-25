@@ -4,7 +4,6 @@ plugins {
 
 neoForge {
     version = project.neoforge_version
-//    accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         client {
@@ -16,6 +15,12 @@ neoForge {
             server()
             programArgument '--nogui'
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        // ultimateneo: headless test run (no EULA needed): gradlew :neoforge:runGameTestServer
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty "neoforge.enabledGameTestNamespaces", project.mod_id
         }
 
         configureEach {
@@ -46,7 +51,7 @@ dependencies {
     api("dev.ftb.mods:ftb-library-neoforge:${rootProject.ftb_library_version}")
 
     compileOnly("dev.ftb.mods:ftb-ranks-neoforge:${rootProject.ftb_ranks_version}")
-    localRuntime("dev.ftb.mods:ftb-ranks-neoforge:${rootProject.ftb_ranks_version}")
+    // ultimateneo: no 26.3 build of FTB Ranks exists, so it is not put on the dev runtime
 
     compileOnly "net.luckperms:api:5.4"
 }
