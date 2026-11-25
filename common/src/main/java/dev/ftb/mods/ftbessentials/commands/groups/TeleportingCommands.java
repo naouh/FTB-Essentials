@@ -38,6 +38,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.BlockHitResult;
@@ -213,7 +214,8 @@ public class TeleportingCommands {
                     // broken heightmap (nether, other mod dimensions)
                     for (BlockPos newPos : BlockPos.spiralAround(new BlockPos(hmPos.getX(), level.getSeaLevel(), hmPos.getZ()), 16, Direction.EAST, Direction.SOUTH)) {
                         BlockState bs = level.getBlockState(newPos);
-                        if (bs.blocksMotion() && !bs.is(IGNORE_RTP_BLOCKS) && level.isEmptyBlock(newPos.above(1))
+                        // 26.3: BlockState#blocksMotion() was removed; it was isSolid() minus cobweb & bamboo sapling
+                        if (bs.isSolid() && !bs.is(Blocks.COBWEB) && !bs.is(Blocks.BAMBOO_SAPLING) && !bs.is(IGNORE_RTP_BLOCKS) && level.isEmptyBlock(newPos.above(1))
                                 && level.isEmptyBlock(newPos.above(2)) && level.isEmptyBlock(newPos.above(3))) {
                             goodPos = newPos.immutable();
                             break;

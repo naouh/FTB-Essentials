@@ -26,7 +26,8 @@ public class FTBEssentialsClient  {
 
 		var team = ClientUtils.getClientLevel().getScoreboard().getPlayersTeam(packet.name());
 		if (team != null) {
-			nameComponent.withStyle(team.getColor());
+			// 26.3: team colours are Optional<TeamColor> (empty == previously ChatFormatting.RESET)
+			team.getColor().ifPresent(color -> nameComponent.withStyle(style -> style.withColor(color.textColor())));
 		}
 
 		if (packet.afk()) {
